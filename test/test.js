@@ -48,7 +48,6 @@ vows.describe('fake-progress').addBatch({
 				},
 				'value is around 0.37' : {
 					var expected = 1 - Math.exp(-3);
-
 					assert(fakeProgress.progress > expected-0.2, "fakeProgress.progress must be > "+(expected-0.2)+" and is "+fakeProgress.progress);
 					assert(fakeProgress.progress < expected+0.2, "fakeProgress.progress must be < "+(expected+0.2)+" and is "+fakeProgress.progress);
 				}
