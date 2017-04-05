@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/piercus/fake-progress/issues"
   },
-  "homepage": "https://github.com/piercus/fake-progress#readme"
+  "homepage": "https://github.com/piercus/fake-progress#readme",
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "vows": "^0.8.1",
+    "xo": "^0.18.1"
+  }
 }
