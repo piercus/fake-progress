@@ -1,0 +1,23 @@
+{
+  "name": "fake-progress",
+  "version": "1.0.0",
+  "description": "Fake a progress bar using an exponential progress function",
+  "main": "index.js",
+  "scripts": {
+    "test": "xo && test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piercus/fake-progress.git"
+  },
+  "keywords": [
+    "progress",
+    "fake"
+  ],
+  "author": "Pierre Colle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/piercus/fake-progress/issues"
+  },
+  "homepage": "https://github.com/piercus/fake-progress#readme"
+}
