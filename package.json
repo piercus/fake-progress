@@ -4,7 +4,7 @@
   "description": "Fake a progress bar using an exponential progress function",
   "main": "index.js",
   "scripts": {
-    "test": "xo && test/test.js"
+    "test": "xo && node test/test.js"
   },
   "repository": {
     "type": "git",

@@ -175,7 +175,7 @@ a(function(){
 
 ### All together
 
-see [./test/complexExample.js]
+see [source](./test/complexExample.js)
 
 ### Results
 
