@@ -45,37 +45,12 @@ Progress is 8.6 %
 Progress is 17.3 %
 Progress is 25.2 %
 Progress is 32.3 %
-Progress is 38.7 %
-Progress is 44.6 %
-Progress is 49.8 %
-Progress is 54.6 %
-Progress is 58.9 %
-Progress is 62.8 %
-Progress is 66.4 %
-Progress is 69.6 %
-Progress is 72.5 %
-Progress is 75.1 %
-Progress is 77.5 %
-Progress is 79.6 %
-Progress is 81.5 %
-Progress is 83.3 %
-Progress is 84.9 %
-Progress is 86.3 %
-Progress is 87.6 %
-Progress is 88.8 %
-Progress is 89.9 %
-Progress is 90.8 %
-Progress is 91.7 %
-Progress is 92.5 %
-Progress is 93.2 %
-Progress is 93.9 %
-Progress is 94.4 %
-Ended. Progress is 100.0 %
+...
 ```
 
 The chart of progression over time.
 
-[!alt](./example.png)
+![Chart of progress](./example.png)
 
 Until the end is triggered, the progression is following the exponential curve, once "end" is triggered, progression goes to 100%.
 
@@ -204,7 +179,7 @@ see [./test/complexExample.js]
 
 ### Results
 
-[!alt](./complexExample.png)
+![Chart of progress](./complexExample.png)
 
 ## Documentation
 
