@@ -3,6 +3,12 @@
 
 Simulate smooth progression easily and combine real progression and fake progression.
 
+## Install
+
+```
+npm install fake-progress
+```
+
 ## Basic example
 
 ```
