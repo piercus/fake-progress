@@ -63,16 +63,16 @@ In this example we will mix 3 functions, A and C are classical async functions, 
 
 a and c are 2 basic async functions without progress.
 ```
-var a = function(cb){
-	setTimeout(function(){
-		cb()
-	},1000)
+const a = function (cb) {
+	setTimeout(() => {
+		cb();
+	}, 1000);
 };
 
-var c = function(cb){
-	setTimeout(function(){
-		cb()
-	},3000)
+const c = function (cb) {
+	setTimeout(() => {
+		cb();
+	}, 3000);
 };
 ```
 
@@ -81,22 +81,22 @@ var c = function(cb){
 b will be an instance of an event emmiter that has a progress event
 
 ```
-const B = function(){
+const B = function () {
 	EventEmitter.call(this);
 
-	var count = 0;
-	var self = this;
-	var totalCount = 30;
-	self.emit('start', count/totalCount);
-	self._intervalId = setInterval(function(){
-		count ++;
-		if(count >= totalCount){
-			self.emit('end', count/totalCount);
+	let count = 0;
+	const self = this;
+	const totalCount = 30;
+	self.emit('start', count / totalCount);
+	self._intervalId = setInterval(() => {
+		count++;
+		if (count >= totalCount) {
+			self.emit('end', count / totalCount);
 			clearInterval(self._intervalId);
 		} else {
-			self.emit('progress', count/totalCount);
+			self.emit('progress', count / totalCount);
 		}
-	}, 100)
+	}, 100);
 };
 
 util.inherits(B, EventEmitter);
@@ -105,14 +105,15 @@ util.inherits(B, EventEmitter);
 ### Create a fake progress and log his value over time
 
 ```
-var p = new FakeProgress({});
+const p = new FakeProgress({});
 
-var onEachDeciSecond = function(){
-  console.log("Progress is "+(p.progress*100).toFixed(1)+" %");
+const onEachDeciSecond = function () {
+	console.log('Progress is ' + (p.progress * 100).toFixed(1) + ' %');
 };
-onEachDeciSecond()
 
-var interval = setInterval(onEachDeciSecond, 100);
+onEachDeciSecond();
+
+const interval = setInterval(onEachDeciSecond, 100);
 ```
 
 ### Create sub progress bar of p, for a progress
@@ -121,25 +122,46 @@ A has no progress so we fake his progress.
 A succeed in 1000 ms, so we can consider 500 ms is a good timeConstant.
 
 ```
-var aProgress = p.createSubProgress({
-	timeConstant : 500,
-	end : 0.3,
-	autoStart : true
+const aProgress = p.createSubProgress({
+	timeConstant: 500,
+	end: 0.3,
+	autoStart: true
 });
 ```
 
 
-### Create a fake progress and log his value over time
+### Call async chain
+
+Each time on the async chain, subProgress.stop() then call createSubProgress() to create a new subProgress.
 
 ```
-var p = new FakeProgress({});
+a(err => {
+	if (err) {
+		throw (err);
+	}
+	aProgress.stop();
+	const bProgress = p.createSubProgress({
+		end: 0.8
+	});
+	const b = new B();
 
-var onEachDeciSecond = function(){
-  console.log("Progress is "+(p.progress*100).toFixed(1)+" %");
-};
-onEachDeciSecond()
+	b.on('progress', progress => {
+		bProgress.setProgress(progress);
+	});
 
-var interval = setInterval(onEachDeciSecond, 100);
+	b.on('end', () => {
+		bProgress.stop();
+		const cProgress = p.createSubProgress({
+			timeConstant: 1000,
+			autoStart: true
+		});
+		c(() => {
+			cProgress.end();
+			onEachDeciSecond();
+			clearInterval(interval);
+		});
+	});
+});
 ```
 
 ### Call everything
@@ -175,7 +197,7 @@ a(function(){
 
 ### All together
 
-see [source](./test/complexExample.js)
+see [source](./test/complex-example.js)
 
 ### Results
 

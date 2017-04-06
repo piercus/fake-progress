@@ -4,196 +4,194 @@ const assert = require('assert');
 const util = require('util');
 const EventEmitter = require('events');
 
-var tolerance = 0.03;// 3%
-
+const tolerance = 0.03;// 3%
 
 vows.describe('fake-progress').addBatch({
-	'fakeProgress default instance' : {
-		topic : function(){
+	'fakeProgress default instance': {
+		topic() {
 			return new FakeProgress();
 		},
-		'can be started' : function(fakeProgress){
-			assert.equal(typeof(fakeProgress.start), "function");
+		'can be started'(fakeProgress) {
+			assert.equal(typeof (fakeProgress.start), 'function');
 		},
-		'has a progress over time' : function(fakeProgress){
-			assert.equal(typeof(fakeProgress.progress), "number");
+		'has a progress over time'(fakeProgress) {
+			assert.equal(typeof (fakeProgress.progress), 'number');
 		},
-		'can be ended' : function(fakeProgress){
-			assert.equal(typeof(fakeProgress.end), "function");
+		'can be ended'(fakeProgress) {
+			assert.equal(typeof (fakeProgress.end), 'function');
 			fakeProgress.end();
 		}
 	},
-	'fakeProgress instance with autoStart' : {
-		topic : function(){
-			var self = this;
-			var fakeProgress = new FakeProgress({
-				timeConstant : 10000,
-				autoStart : true
+	'fakeProgress instance with autoStart': {
+		topic() {
+			const self = this;
+			const fakeProgress = new FakeProgress({
+				timeConstant: 10000,
+				autoStart: true
 			});
-			setTimeout(function(){
+			setTimeout(() => {
 				self.callback(null, fakeProgress);
-			},10000)
+			}, 10000);
 		},
-		'value is around 1 - Math.exp(-1)' : function(fakeProgress){
-			var expected = 1 - Math.exp(-1);
+		'value is around 1 - Math.exp(-1)'(fakeProgress) {
+			const expected = 1 - Math.exp(-1);
 
-			assert(fakeProgress.progress > expected-tolerance, "fakeProgress.progress must be > "+(expected-tolerance)+" and is "+fakeProgress.progress);
-			assert(fakeProgress.progress < expected+tolerance, "fakeProgress.progress must be < "+(expected+tolerance)+" and is "+fakeProgress.progress);
+			assert(fakeProgress.progress > expected - tolerance, 'fakeProgress.progress must be > ' + (expected - tolerance) + ' and is ' + fakeProgress.progress);
+			assert(fakeProgress.progress < expected + tolerance, 'fakeProgress.progress must be < ' + (expected + tolerance) + ' and is ' + fakeProgress.progress);
 			fakeProgress.stop();
 		}
 	},
-	'fakeProgress instance without autoStart' : {
-		topic : function(){
-			var self = this;
-			var fakeProgress = new FakeProgress({
-				timeConstant : 500
+	'fakeProgress instance without autoStart': {
+		topic() {
+			const self = this;
+			const fakeProgress = new FakeProgress({
+				timeConstant: 500
 			});
-			setTimeout(function(){
+			setTimeout(() => {
 				self.callback(null, fakeProgress);
-			},500)
+			}, 500);
 		},
-		'value is 0' : function(fakeProgress){
+		'value is 0'(fakeProgress) {
 			assert.equal(fakeProgress.progress, 0);
 			fakeProgress.stop();
 		}
 	},
-	'fakeProgress instance' : {
-		topic : function(){
+	'fakeProgress instance': {
+		topic() {
 			return new FakeProgress({
-				timeConstant : 500
+				timeConstant: 500
 			});
 		},
-		'start and wait timeConstant' : {
-			'topic' : function(fakeProgress){
-				var self = this;
-				setTimeout(function(){
+		'start and wait timeConstant': {
+			topic(fakeProgress) {
+				const self = this;
+				setTimeout(() => {
 					self.callback(null, fakeProgress);
-				},500)
+				}, 500);
 				fakeProgress.start();
 			},
-			'value is around 1 - Math.exp(-1)' : function(fakeProgress){
-				var expected = 1 - Math.exp(-1);
+			'value is around 1 - Math.exp(-1)'(fakeProgress) {
+				const expected = 1 - Math.exp(-1);
 
-				assert(fakeProgress.progress > expected-tolerance, "fakeProgress.progress must be > "+(expected-tolerance)+" and is "+fakeProgress.progress);
-				assert(fakeProgress.progress < expected+tolerance, "fakeProgress.progress must be < "+(expected+tolerance)+" and is "+fakeProgress.progress);
+				assert(fakeProgress.progress > expected - tolerance, 'fakeProgress.progress must be > ' + (expected - tolerance) + ' and is ' + fakeProgress.progress);
+				assert(fakeProgress.progress < expected + tolerance, 'fakeProgress.progress must be < ' + (expected + tolerance) + ' and is ' + fakeProgress.progress);
 			},
-			'and wait timeConstant again' : {
-				topic : function(fakeProgress){
-					var self = this;
-					setTimeout(function(){
-						self.callback(null, fakeProgress)
-					},1000)
+			'and wait timeConstant again': {
+				topic(fakeProgress) {
+					const self = this;
+					setTimeout(() => {
+						self.callback(null, fakeProgress);
+					}, 1000);
 				},
-				'value is around Math.exp(-3)' : function(fakeProgress){
-					var expected = 1 - Math.exp(-3);
-					assert(fakeProgress.progress > expected-tolerance, "fakeProgress.progress must be > "+(expected-tolerance)+" and is "+fakeProgress.progress);
-					assert(fakeProgress.progress < expected+tolerance, "fakeProgress.progress must be < "+(expected+tolerance)+" and is "+fakeProgress.progress);
+				'value is around Math.exp(-3)'(fakeProgress) {
+					const expected = 1 - Math.exp(-3);
+					assert(fakeProgress.progress > expected - tolerance, 'fakeProgress.progress must be > ' + (expected - tolerance) + ' and is ' + fakeProgress.progress);
+					assert(fakeProgress.progress < expected + tolerance, 'fakeProgress.progress must be < ' + (expected + tolerance) + ' and is ' + fakeProgress.progress);
 				},
-				'then end' : {
-					topic : function(fakeProgress){
-						fakeProgress.end()
-						return fakeProgress
+				'then end': {
+					topic(fakeProgress) {
+						fakeProgress.end();
+						return fakeProgress;
 					},
-					'value is 1' : function(fakeProgress){
-						assert.equal(fakeProgress.progress,1);
+					'value is 1'(fakeProgress) {
+						assert.equal(fakeProgress.progress, 1);
 					}
 				}
 			}
 		}
 	}
 }).addBatch({
-	'sub Tasks example' : {
-		topic : function(){
-			var callback = this.callback;
+	'sub Tasks example': {
+		topic() {
+			const callback = this.callback;
 
-			var a = function(cb){
-				setTimeout(function(){
-					cb()
-				},1000)
+			const a = function (cb) {
+				setTimeout(() => {
+					cb();
+				}, 1000);
 			};
 
-			var c = function(cb){
-				setTimeout(function(){
-					cb()
-				},3000)
+			const c = function (cb) {
+				setTimeout(() => {
+					cb();
+				}, 3000);
 			};
 
-			const B = function(){
+			const B = function () {
 				EventEmitter.call(this);
 
-				var count = 0;
-				var self = this;
-				var totalCount = 30;
-				self.emit('start', count/totalCount);
-				self._intervalId = setInterval(function(){
-					count ++;
-					if(count >= totalCount){
-						self.emit('end', count/totalCount);
+				let count = 0;
+				const self = this;
+				const totalCount = 30;
+				self.emit('start', count / totalCount);
+				self._intervalId = setInterval(() => {
+					count++;
+					if (count >= totalCount) {
+						self.emit('end', count / totalCount);
 						clearInterval(self._intervalId);
 					} else {
-						self.emit('progress', count/totalCount);
+						self.emit('progress', count / totalCount);
 					}
-				}, 100)
+				}, 100);
 			};
 
 			util.inherits(B, EventEmitter);
 
+			const p = new FakeProgress({});
 
-			var p = new FakeProgress({});
-
-			var aProgress = p.createSubProgress({
-				timeConstant : 500,
-				end : 0.3,
-				autoStart : true
+			const aProgress = p.createSubProgress({
+				timeConstant: 500,
+				end: 0.3,
+				autoStart: true
 			});
 
-			a(function(err){
-				if(err){
-					throw(err)
+			a(err => {
+				if (err) {
+					throw (err);
 				}
 				aProgress.stop();
-				var bProgress = p.createSubProgress({
-					end : 0.8
+				const bProgress = p.createSubProgress({
+					end: 0.8
 				});
-				var b = new B();
+				const b = new B();
 
-				b.on('progress', function(progress){
+				b.on('progress', progress => {
 					bProgress.setProgress(progress);
 				});
 
-				b.on('end', function(){
+				b.on('end', () => {
 					bProgress.stop();
-					var cProgress = p.createSubProgress({
-						timeConstant : 1000,
-						autoStart : true
+					const cProgress = p.createSubProgress({
+						timeConstant: 1000,
+						autoStart: true
 					});
-					c(function(){
-						cProgress.end()
-					})
+					c(() => {
+						cProgress.end();
+					});
 				});
 			});
 
-			callback(null, p)
+			callback(null, p);
 		},
-		'can be started' : function(fakeProgress){
-			assert.equal(typeof(fakeProgress.start), "function");
+		'can be started'(fakeProgress) {
+			assert.equal(typeof (fakeProgress.start), 'function');
 		},
-		'has a progress over time' : function(fakeProgress){
-			assert.equal(typeof(fakeProgress.progress), "number");
+		'has a progress over time'(fakeProgress) {
+			assert.equal(typeof (fakeProgress.progress), 'number');
 		},
-		'can be ended' : function(fakeProgress){
-			assert.equal(typeof(fakeProgress.end), "function");
+		'can be ended'(fakeProgress) {
+			assert.equal(typeof (fakeProgress.end), 'function');
 		},
-		'progress is smooth' : {
-			topic : function(fakeProgress){
-				setTimeout(this.callback.bind(this, null, fakeProgress), 3000)
+		'progress is smooth': {
+			topic(fakeProgress) {
+				setTimeout(this.callback.bind(this, null, fakeProgress), 3000);
 			},
-			'progress is smooth' : function(fakeProgress){
-				var expected1 = (1 - Math.exp(-1000/500))*0.3;
-				var expected = (0.8-expected1)*2/3+expected1
+			'progress is smooth'(fakeProgress) {
+				const expected1 = (1 - Math.exp(-1000 / 500)) * 0.3;
+				const expected = ((0.8 - expected1) * 2 / 3) + expected1;
 
-				assert(fakeProgress.progress > expected-tolerance, "fakeProgress.progress must be > "+(expected-tolerance)+" and is "+fakeProgress.progress);
-				assert(fakeProgress.progress < expected+tolerance, "fakeProgress.progress must be < "+(expected+tolerance)+" and is "+fakeProgress.progress);
+				assert(fakeProgress.progress > expected - tolerance, 'fakeProgress.progress must be > ' + (expected - tolerance) + ' and is ' + fakeProgress.progress);
+				assert(fakeProgress.progress < expected + tolerance, 'fakeProgress.progress must be < ' + (expected + tolerance) + ' and is ' + fakeProgress.progress);
 			}
 		}
 	}
@@ -201,5 +199,5 @@ vows.describe('fake-progress').addBatch({
 	if (res.honored !== res.total) {
 		process.exit(1); // eslint-disable-line unicorn/no-process-exit
 	}
-	process.exit(0)
+	process.exit(0);// eslint-disable-line unicorn/no-process-exit
 });
