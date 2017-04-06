@@ -1,3 +1,4 @@
+![Travis build status](https://www.travis-ci.org/piercus/fake-progress.svg?branch=master)
 # Fakeprogress
 
 Simulate smooth progression easily and combine real progression and fake progression.
