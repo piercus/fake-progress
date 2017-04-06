@@ -36,16 +36,20 @@ util.inherits(B, EventEmitter);
 
 const p = new FakeProgress({});
 
+const onEachDeciSecond = function () {
+	console.log('Progress is ' + (p.progress * 100).toFixed(1) + ' %');
+};
+
+onEachDeciSecond();
+
+const interval = setInterval(onEachDeciSecond, 100);
+
 const aProgress = p.createSubProgress({
 	timeConstant: 500,
 	end: 0.3,
 	autoStart: true
 });
-const onEachDeciSecond = function () {
-	console.log('Progress is ' + (p.progress * 100).toFixed(1) + ' %');
-};
-onEachDeciSecond();
-const interval = setInterval(onEachDeciSecond, 100);
+
 a(err => {
 	if (err) {
 		throw (err);
