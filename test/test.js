@@ -81,7 +81,7 @@ vows.describe('fake-progress').addBatch({
 					const self = this;
 					setTimeout(() => {
 						self.callback(null, fakeProgress);
-					}, 1000);
+					}, 10000);
 				},
 				'value is around Math.exp(-3)'(fakeProgress) {
 					const expected = 1 - Math.exp(-3);

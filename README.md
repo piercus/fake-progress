@@ -11,7 +11,7 @@ npm install fake-progress
 
 ## Basic example
 
-```
+```js
 var FakeProgress = require("..");
 
 // Create the fake progress with a timeConstant of 10 seconds
@@ -69,7 +69,7 @@ In this example we will mix 3 functions, A and C are classical async functions, 
 ### Create 2 async function a, c
 
 a and c are 2 basic async functions without progress.
-```
+```js
 const a = function (cb) {
 	setTimeout(() => {
 		cb();
@@ -87,7 +87,7 @@ const c = function (cb) {
 
 b will be an instance of an event emmiter that has a progress event
 
-```
+```js
 const B = function () {
 	EventEmitter.call(this);
 
@@ -111,7 +111,7 @@ util.inherits(B, EventEmitter);
 
 ### Create a fake progress and log his value over time
 
-```
+```js
 const p = new FakeProgress({});
 
 const onEachDeciSecond = function () {
@@ -128,7 +128,7 @@ const interval = setInterval(onEachDeciSecond, 100);
 A has no progress so we fake his progress.
 A succeed in 1000 ms, so we can consider 500 ms is a good timeConstant.
 
-```
+```js
 const aProgress = p.createSubProgress({
 	timeConstant: 500,
 	end: 0.3,
@@ -141,7 +141,7 @@ const aProgress = p.createSubProgress({
 
 Each time on the async chain, subProgress.stop() then call createSubProgress() to create a new subProgress.
 
-```
+```js
 a(err => {
 	if (err) {
 		throw (err);
@@ -175,7 +175,7 @@ a(err => {
 
 After each call, stop previous sub, and create a new subProgress for next request.
 
-```
+```js
 a(function(){
 	aProgress.stop();
 	var bProgress = p.createSubProgress({
