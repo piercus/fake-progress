@@ -59,7 +59,7 @@ vows.describe('fake-progress').addBatch({
 	'fakeProgress instance': {
 		topic() {
 			return new FakeProgress({
-				timeConstant: 500
+				timeConstant: 5000
 			});
 		},
 		'start and wait timeConstant': {
@@ -67,7 +67,7 @@ vows.describe('fake-progress').addBatch({
 				const self = this;
 				setTimeout(() => {
 					self.callback(null, fakeProgress);
-				}, 500);
+				}, 5000);
 				fakeProgress.start();
 			},
 			'value is around 1 - Math.exp(-1)'(fakeProgress) {
