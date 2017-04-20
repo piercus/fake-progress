@@ -12,7 +12,7 @@ npm install fake-progress
 ## Basic example
 
 ```js
-var FakeProgress = require("..");
+var FakeProgress = require("fake-progress");
 
 // Create the fake progress with a timeConstant of 10 seconds
 // it means that :
@@ -20,26 +20,26 @@ var FakeProgress = require("..");
 //  after 20 seconds, progress will be 0.8646 ( = 1-Math.exp(-2) )
 //  and so one
 var p = new FakeProgress({
-  timeConstant : 10000,
-  autoStart : true
+	timeConstant : 10000,
+	autoStart : true
 });
 
 var exampleAsyncFunction = function(callback){
-  setTimeout(function(){
-    callback()
-  },30000)
+	setTimeout(function(){
+		callback()
+	},30000)
 };
 
 var onEachSecond = function(){
-  console.log("Progress is "+(p.progress*100).toFixed(1)+" %");
+	console.log("Progress is "+(p.progress*100).toFixed(1)+" %");
 };
 
 var interval = setInterval(onEachSecond, 1000);
 
 var onEnd = function(){
-  p.end();
-  clearInterval(interval);
-  console.log("Ended. Progress is "+(p.progress*100).toFixed(1)+" %")
+	p.end();
+	clearInterval(interval);
+	console.log("Ended. Progress is "+(p.progress*100).toFixed(1)+" %")
 };
 
 exampleAsyncFunction(onEnd);
@@ -195,8 +195,8 @@ a(function(){
 		});
 		c(function(){
 			cProgress.end()
-      onEachDeciSecond()
-      clearInterval(interval);
+			onEachDeciSecond()
+			clearInterval(interval);
 		})
 	});
 });
