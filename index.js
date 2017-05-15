@@ -88,4 +88,6 @@ FakeProgress.prototype.setProgress = function (progress) {
 	}
 };
 
-module.exports = FakeProgress;
+if(typeof exports === 'object' && typeof module === 'object') {
+	module.exports = FakeProgress;
+}

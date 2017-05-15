@@ -1,0 +1,21 @@
+{
+	"name": "fake-progress",
+	"description": "Fake a progress bar using an exponential progress function",
+	"main": "index.js",
+	"authors": [
+		"Pierre Colle"
+	],
+	"license": "MIT",
+	"keywords": [
+		"progress",
+		"fake"
+	],
+	"homepage": "https://github.com/piercus/fake-progress",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	]
+}
