@@ -77,6 +77,7 @@ FakeProgress.prototype.createSubProgress = function (opts) {
 		start: null,
 		end: null
 	});
+
 	const subProgress = new FakeProgress(options);
 	return subProgress;
 };
