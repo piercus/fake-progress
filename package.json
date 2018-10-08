@@ -1,6 +1,6 @@
 {
   "name": "fake-progress",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Fake a progress bar using an exponential progress function",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,13 @@
   },
   "keywords": [
     "progress",
-    "fake"
+    "fake",
+    "spinner",
+    "percentage",
+    "simulate",
+    "elegant",
+    "loading",
+    "busy"
   ],
   "author": "Pierre Colle",
   "license": "MIT",
