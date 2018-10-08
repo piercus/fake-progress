@@ -25,6 +25,11 @@
   "bugs": {
     "url": "https://github.com/piercus/fake-progress/issues"
   },
+  "xo":{
+    "rules" : {
+      "object-shorthand": ["error", "never"]
+    }
+  },
   "homepage": "https://github.com/piercus/fake-progress#readme",
   "devDependencies": {
     "assert": "^1.4.1",

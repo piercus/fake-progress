@@ -8,22 +8,22 @@ const tolerance = 0.03;// 3%
 
 vows.describe('fake-progress').addBatch({
 	'fakeProgress default instance': {
-		topic() {
+		topic: function () {
 			return new FakeProgress();
 		},
-		'can be started'(fakeProgress) {
+		'can be started': function (fakeProgress) {
 			assert.equal(typeof (fakeProgress.start), 'function');
 		},
-		'has a progress over time'(fakeProgress) {
+		'has a progress over time': function (fakeProgress) {
 			assert.equal(typeof (fakeProgress.progress), 'number');
 		},
-		'can be ended'(fakeProgress) {
+		'can be ended': function (fakeProgress) {
 			assert.equal(typeof (fakeProgress.end), 'function');
 			fakeProgress.end();
 		}
 	},
 	'fakeProgress instance with autoStart': {
-		topic() {
+		topic: function () {
 			const self = this;
 			const fakeProgress = new FakeProgress({
 				timeConstant: 10000,
@@ -33,7 +33,7 @@ vows.describe('fake-progress').addBatch({
 				self.callback(null, fakeProgress);
 			}, 10000);
 		},
-		'value is around 1 - Math.exp(-1)'(fakeProgress) {
+		'value is around 1 - Math.exp(-1)': function (fakeProgress) {
 			const expected = 1 - Math.exp(-1);
 
 			assert(fakeProgress.progress > expected - tolerance, 'fakeProgress.progress must be > ' + (expected - tolerance) + ' and is ' + fakeProgress.progress);
@@ -42,7 +42,7 @@ vows.describe('fake-progress').addBatch({
 		}
 	},
 	'fakeProgress instance without autoStart': {
-		topic() {
+		topic: function () {
 			const self = this;
 			const fakeProgress = new FakeProgress({
 				timeConstant: 500
@@ -51,49 +51,49 @@ vows.describe('fake-progress').addBatch({
 				self.callback(null, fakeProgress);
 			}, 500);
 		},
-		'value is 0'(fakeProgress) {
+		'value is 0': function (fakeProgress) {
 			assert.equal(fakeProgress.progress, 0);
 			fakeProgress.stop();
 		}
 	},
 	'fakeProgress instance': {
-		topic() {
+		topic: function () {
 			return new FakeProgress({
 				timeConstant: 5000
 			});
 		},
 		'start and wait timeConstant': {
-			topic(fakeProgress) {
+			topic: function (fakeProgress) {
 				const self = this;
 				setTimeout(() => {
 					self.callback(null, fakeProgress);
 				}, 5000);
 				fakeProgress.start();
 			},
-			'value is around 1 - Math.exp(-1)'(fakeProgress) {
+			'value is around 1 - Math.exp(-1)': function (fakeProgress) {
 				const expected = 1 - Math.exp(-1);
 
 				assert(fakeProgress.progress > expected - tolerance, 'fakeProgress.progress must be > ' + (expected - tolerance) + ' and is ' + fakeProgress.progress);
 				assert(fakeProgress.progress < expected + tolerance, 'fakeProgress.progress must be < ' + (expected + tolerance) + ' and is ' + fakeProgress.progress);
 			},
 			'and wait timeConstant again': {
-				topic(fakeProgress) {
+				topic: function (fakeProgress) {
 					const self = this;
 					setTimeout(() => {
 						self.callback(null, fakeProgress);
 					}, 10000);
 				},
-				'value is around Math.exp(-3)'(fakeProgress) {
+				'value is around Math.exp(-3)': function (fakeProgress) {
 					const expected = 1 - Math.exp(-3);
 					assert(fakeProgress.progress > expected - tolerance, 'fakeProgress.progress must be > ' + (expected - tolerance) + ' and is ' + fakeProgress.progress);
 					assert(fakeProgress.progress < expected + tolerance, 'fakeProgress.progress must be < ' + (expected + tolerance) + ' and is ' + fakeProgress.progress);
 				},
 				'then end': {
-					topic(fakeProgress) {
+					topic: function (fakeProgress) {
 						fakeProgress.end();
 						return fakeProgress;
 					},
-					'value is 1'(fakeProgress) {
+					'value is 1': function (fakeProgress) {
 						assert.equal(fakeProgress.progress, 1);
 					}
 				}
@@ -102,7 +102,7 @@ vows.describe('fake-progress').addBatch({
 	}
 }).addBatch({
 	'sub Tasks example': {
-		topic() {
+		topic: function () {
 			const callback = this.callback;
 
 			const a = function (cb) {
@@ -173,20 +173,20 @@ vows.describe('fake-progress').addBatch({
 
 			callback(null, p);
 		},
-		'can be started'(fakeProgress) {
+		'can be started': function (fakeProgress) {
 			assert.equal(typeof (fakeProgress.start), 'function');
 		},
-		'has a progress over time'(fakeProgress) {
+		'has a progress over time': function (fakeProgress) {
 			assert.equal(typeof (fakeProgress.progress), 'number');
 		},
-		'can be ended'(fakeProgress) {
+		'can be ended': function (fakeProgress) {
 			assert.equal(typeof (fakeProgress.end), 'function');
 		},
 		'progress is smooth': {
-			topic(fakeProgress) {
+			topic: function (fakeProgress) {
 				setTimeout(this.callback.bind(this, null, fakeProgress), 3000);
 			},
-			'progress is smooth'(fakeProgress) {
+			'progress is smooth': function (fakeProgress) {
 				const expected1 = (1 - Math.exp(-1000 / 500)) * 0.3;
 				const expected = ((0.8 - expected1) * 2 / 3) + expected1;
 
