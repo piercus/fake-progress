@@ -71,12 +71,12 @@ FakeProgress.prototype.createSubProgress = function (opts) {
 	const parentStart = opts.start || this.progress;
 	const parentEnd = opts.end || 1;
 	const options = Object.assign({}, opts, {
-    parent: this,
-    parentStart: parentStart,
-    parentEnd: parentEnd,
-    start: null,
-    end: null
-  });
+		parent: this,
+		parentStart: parentStart,
+		parentEnd: parentEnd,
+		start: null,
+		end: null
+	});
 	const subProgress = new FakeProgress(options);
 	return subProgress;
 };
