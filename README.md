@@ -63,7 +63,7 @@ Until the end is triggered, the progression is following the exponential curve, 
 
 ## More complex
 
-In this example we will mix 3 functions, A and C are classical async functions, B is an async function with a 'real' callback.
+In this example we will mix 3 functions, A and C are classical async functions, B is an async function with a 'real' progression callback.
 
 
 ### Create 2 async function a, c
