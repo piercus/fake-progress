@@ -18,7 +18,7 @@ var FakeProgress = require("fake-progress");
 // it means that :
 //  after 10 seconds, progress will be 0.6321 ( = 1-Math.exp(-1) )
 //  after 20 seconds, progress will be 0.8646 ( = 1-Math.exp(-2) )
-//  and so one
+//  and so on
 var p = new FakeProgress({
 	timeConstant : 10000,
 	autoStart : true
