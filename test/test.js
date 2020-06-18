@@ -1,8 +1,8 @@
-const FakeProgress = require('..');
 const vows = require('vows');
 const assert = require('assert');
 const util = require('util');
 const EventEmitter = require('events');
+const FakeProgress = require('..');
 
 const tolerance = 0.03;// 3%
 

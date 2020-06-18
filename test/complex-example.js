@@ -1,6 +1,6 @@
-const FakeProgress = require('..');
 const util = require('util');
 const EventEmitter = require('events');
+const FakeProgress = require('..');
 
 const a = function (cb) {
 	setTimeout(() => {
